@@ -9,7 +9,7 @@
 - Geist + Geist Mono fonts
 - Phosphor Icons
 
-## Key constraints (see spec/constitution.md for full list)
+## Key constraints (see specs/constitution.md for full list)
 
 - Desktop-first layout. Sidebar fixed left, board area fills remaining space.
 - All sections always visible simultaneously — no tabs, no navigation.
@@ -20,10 +20,16 @@
 
 ---
 
+## Folder names
+
+The spec folder is named `specs/` — not `spec/`. The work folder is named `work/` — not `works/`. Never create or reference these folders under any other name.
+
+---
+
 ## Spec authority
 
-- Behavioral authority: `spec/` markdown files in this repository.
-- Visual authority: `spec/ui/design-tokens.md`.
+- Behavioral authority: `specs/` markdown files in this repository.
+- Visual authority: `specs/ui/design-tokens.md`.
 - On conflict, behavioral specs win.
 - Do not implement behavior that contradicts the specs without updating the specs first and confirming with the user.
 
@@ -43,9 +49,9 @@ This project uses a 6-step spec-driven development workflow:
 Each step has a confirmation checkpoint. Never advance to the next step without explicit user confirmation.
 
 Before any task involving bugs, features, or implementation, read:
-- `spec/PRODUCT_CONTEXT.md`
-- `spec/DECISIONS.md`
-- `spec/GLOSSARY.md`
+- `specs/PRODUCT_CONTEXT.md`
+- `specs/DECISIONS.md`
+- `specs/GLOSSARY.md`
 
 ---
 
@@ -93,7 +99,7 @@ After any code change is confirmed working, always ask the user:
 
 > "Should I update the specs?"
 
-Wait for confirmation before modifying any file under `spec/`. Only update specs after the user explicitly says yes.
+Wait for confirmation before modifying any file under `specs/`. Only update specs after the user explicitly says yes.
 
 ---
 

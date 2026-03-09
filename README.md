@@ -31,7 +31,7 @@ The result: less correction, less drift, more execution.
 - **6-step development workflow** — spec → plan → implement → test → sync → deploy, with slash commands for Claude Code and Cursor
 - **Sync utils** — `/tokens-sync`, `/icons-sync`, `/fonts-sync`, `/components-sync`, `/screens-sync` keep your specs in sync with Figma as the design evolves
 - **Structured spec folder** — every aspect of the product has a home: domain entities, UI tokens, components, screens, UX flows, architecture rules, decisions, glossary
-- **work/ separation** — operational artifacts (plans, tasks, changelogs) live outside `spec/`, keeping the spec clean as the source of truth
+- **work/ separation** — operational artifacts (plans, tasks, changelogs) live outside `specs/`, keeping the spec clean as the source of truth
 - **Git workflow built in** — branching, atomic commits, and deploy rules are part of the framework, not an afterthought
 - **Claude Code + Cursor** — identical command sets for both tools; bootstrap generates the right config for whichever you use
 
@@ -100,7 +100,7 @@ scofield/
 ├── CLAUDE.md              ← rules for Claude Code
 ├── .cursorrules           ← rules for Cursor
 ├── bootstrap.md           ← paste this into your AI tool to set up the project
-├── spec/
+├── specs/
 │   ├── PRODUCT_CONTEXT.md ← what the product is, who it's for, why it exists
 │   ├── DECISIONS.md       ← architecture decision records (ADRs)
 │   ├── GLOSSARY.md        ← canonical terms used across specs and code
@@ -168,7 +168,7 @@ Components and screens each have a `figma_url:` field in their spec file. Fill i
 
 ## The spec is the source of truth
 
-`spec/` contains only what the product *is* — not what's being worked on right now. Plans, tasks, and changelogs live in `work/` and are cleaned up after each deploy. This keeps the spec stable and readable at any point in the project's life.
+`specs/` contains only what the product *is* — not what's being worked on right now. Plans, tasks, and changelogs live in `work/` and are cleaned up after each deploy. This keeps the spec stable and readable at any point in the project's life.
 
 ---
 

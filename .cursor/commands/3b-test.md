@@ -3,8 +3,8 @@
 We have a completed implementation. Now validate it against the acceptance criteria.
 
 Before starting, read:
-- /spec/PRODUCT_CONTEXT.md
-- /spec/constitution.md
+- /specs/PRODUCT_CONTEXT.md
+- /specs/constitution.md
 - The relevant task file for this pack
 
 ## Process

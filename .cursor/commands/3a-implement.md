@@ -3,7 +3,7 @@
 We have approved plans and tasks. Now implement.
 
 Before starting:
-- Read /spec/PRODUCT_CONTEXT.md, /spec/constitution.md, and the relevant task file for this pack.
+- Read /specs/PRODUCT_CONTEXT.md, /specs/constitution.md, and the relevant task file for this pack.
 
 Rules:
 - Implement one task at a time.

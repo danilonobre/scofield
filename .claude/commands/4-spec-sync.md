@@ -42,8 +42,8 @@ If no Spec corrections were listed:
 ## For all packs
 
 After processing artifacts and corrections, verify:
-- `spec/DECISIONS.md` — add entries for any non-obvious decisions made during implementation that are not already covered by the feature/bug pack.
-- `spec/GLOSSARY.md` — add any new terms introduced during implementation.
+- `specs/DECISIONS.md` — add entries for any non-obvious decisions made during implementation that are not already covered by the feature/bug pack.
+- `specs/GLOSSARY.md` — add any new terms introduced during implementation.
 
 ---
 

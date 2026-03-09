@@ -13,10 +13,13 @@ Read this entire file before starting. For each session:
 2. Where you find consecutive filled answers, present them as a group and ask the user to confirm or edit before proceeding.
 3. Where you find a blank answer, ask the question interactively and wait for the user's response before moving on.
 4. Never reorder questions. Never skip a question. Acceleration only applies to consecutive filled blocks.
-5. At the end of each session, summarize what was defined and wait for explicit confirmation before starting the next session.
-6. After all 5 sessions are complete, generate all spec files and the appropriate AI config files (CLAUDE.md, .cursorrules, or both — based on Session 2).
+5. After each answer is confirmed, immediately update the corresponding field in this file with the user's answer, replacing the `<!-- your answer here -->` comment.
+6. At the end of each session, summarize what was defined and wait for explicit confirmation before starting the next session.
+7. After all 5 sessions are complete, generate all spec files and the appropriate AI config files (CLAUDE.md, .cursorrules, or both — based on Session 2).
 
-Do not create or modify any file before Session 5 is confirmed.
+Do not generate spec files before Session 5 is confirmed. Updating this file with confirmed answers is the only exception to this rule.
+
+The spec folder is named `specs/` — never `spec/`. The work folder is named `work/` — never `works/`. Always use these exact names.
 
 ---
 

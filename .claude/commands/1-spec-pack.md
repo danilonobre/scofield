@@ -3,7 +3,7 @@
 We have an existing implementation. We need to fix bugs and/or add features. Keep /spec as the source of truth.
 Do NOT implement yet.
 
-Before starting, read /spec/PRODUCT_CONTEXT.md, /spec/DECISIONS.md, and /spec/GLOSSARY.md to align with existing product intent. Do not read Figma at this stage.
+Before starting, read /specs/PRODUCT_CONTEXT.md, /specs/DECISIONS.md, and /specs/GLOSSARY.md to align with existing product intent. Do not read Figma at this stage.
 
 ---
 
@@ -35,17 +35,17 @@ Create `work/changes/YYYY-MM-DD_feature_[name].md` documenting each feature with
 
 Then populate **Spec artifacts** by analyzing the feature and applying these rules. Only flag artifacts that are genuinely required. If uncertain whether an artifact is needed, ask the user before including it:
 
-- New user-facing interaction or journey → `spec/ux/flows/[name].md` (CREATE)
-- New distinct UI surface or page → `spec/ui/screens/[name].md` (CREATE)
-- Significant change to existing screen layout or behavior → `spec/ui/screens/[name].md` (UPDATE)
-- New UI element with variants or reuse potential → `spec/ui/components/[name].md` (CREATE)
-- New visual property not covered by existing tokens → `spec/ui/_tokens.md` (UPDATE)
-- New data entity or field → `spec/domain/entities.md` (UPDATE)
-- New AI processing rule or pipeline behavior → `spec/domain/pipeline-rules.md` (UPDATE)
-- New term not in glossary → `spec/GLOSSARY.md` (UPDATE)
-- Non-obvious decision made → `spec/DECISIONS.md` (UPDATE)
-- Change in what the product does or who it serves → `spec/PRODUCT_CONTEXT.md` (FLAG for user review)
-- Change in scope → `spec/scope.md` (UPDATE)
+- New user-facing interaction or journey → `specs/ux/flows/[name].md` (CREATE)
+- New distinct UI surface or page → `specs/ui/screens/[name].md` (CREATE)
+- Significant change to existing screen layout or behavior → `specs/ui/screens/[name].md` (UPDATE)
+- New UI element with variants or reuse potential → `specs/ui/components/[name].md` (CREATE)
+- New visual property not covered by existing tokens → `specs/ui/_tokens.md` (UPDATE)
+- New data entity or field → `specs/domain/entities.md` (UPDATE)
+- New AI processing rule or pipeline behavior → `specs/domain/pipeline-rules.md` (UPDATE)
+- New term not in glossary → `specs/GLOSSARY.md` (UPDATE)
+- Non-obvious decision made → `specs/DECISIONS.md` (UPDATE)
+- Change in what the product does or who it serves → `specs/PRODUCT_CONTEXT.md` (FLAG for user review)
+- Change in scope → `specs/scope.md` (UPDATE)
 
 Present the Spec artifacts list and stop for user confirmation before proceeding.
 
@@ -53,8 +53,8 @@ Present the Spec artifacts list and stop for user confirmation before proceeding
 
 ## Step 3: Check GLOSSARY and DECISIONS
 
-- If any new term or concept was introduced, add it to `spec/GLOSSARY.md`.
-- If any non-obvious design decision was made, add it to `spec/DECISIONS.md` with explicit justification.
+- If any new term or concept was introduced, add it to `specs/GLOSSARY.md`.
+- If any non-obvious design decision was made, add it to `specs/DECISIONS.md` with explicit justification.
 
 ---
 

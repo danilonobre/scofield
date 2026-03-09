@@ -4,7 +4,7 @@
 
 ## Authority Hierarchy
 - Behavioral authority: spec files in this repository.
-- Visual authority: `spec/ui/_tokens.md` and Figma (when available).
+- Visual authority: `specs/ui/_tokens.md` and Figma (when available).
 - On conflict, behavioral specs win.
 
 ---
@@ -23,4 +23,4 @@ A feature is complete only if:
 - Behavior matches specs.
 - Edge cases are handled as specified.
 - No regressions against the non-negotiables above.
-- UI uses correct design tokens from `spec/ui/_tokens.md`.
+- UI uses correct design tokens from `specs/ui/_tokens.md`.
