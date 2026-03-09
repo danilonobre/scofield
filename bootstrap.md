@@ -15,7 +15,7 @@ Read this entire file before starting. For each session:
 4. Never reorder questions. Never skip a question. Acceleration only applies to consecutive filled blocks.
 5. After each answer is confirmed, immediately update the corresponding field in this file with the user's answer, replacing the `<!-- your answer here -->` comment.
 6. At the end of each session, summarize what was defined and wait for explicit confirmation before starting the next session.
-7. After all 5 sessions are complete, generate all spec files and the appropriate AI config files (CLAUDE.md, .cursorrules, or both — based on Session 2).
+7. After all 5 sessions are complete, generate all spec files and the appropriate AI config files (CLAUDE.md, .cursorrules, or both — based on Session 2). Then proceed immediately to Session 6.
 
 Do not generate spec files before Session 5 is confirmed. Updating this file with confirmed answers is the only exception to this rule.
 
@@ -174,3 +174,29 @@ The spec folder is named `specs/` — never `spec/`. The work folder is named `w
 <!-- your answer here -->
 
 ---
+
+## Session 6 — Kickoff
+
+This session runs automatically after all spec files have been generated in Session 5. No questions are asked — this is a planning step.
+
+Read the following files:
+- `specs/PRODUCT_CONTEXT.md`
+- `specs/scope.md`
+- `specs/domain/entities.md`
+- `specs/architecture/frontend.md`
+- All files in `specs/ui/screens/`
+- All files in `specs/ux/flows/`
+
+Then produce an **initial implementation plan**:
+
+1. Break the full scope into logical implementation milestones — ordered by dependency (foundations first, user-facing features after).
+2. For each milestone, list the main files that will be created or modified.
+3. Flag any technical risks or unknowns that should be resolved before building.
+4. Suggest where to start — the smallest slice that results in something runnable.
+
+Present the plan and stop for user confirmation.
+
+After confirmation:
+- Create `work/changes/YYYY-MM-DD_feature_kickoff.md` documenting every feature from `specs/scope.md` with: description, expected behavior, acceptance criteria, and rationale drawn from the specs.
+- Populate the **Spec artifacts** list in that file, mapping each feature to its relevant spec files.
+- Declare: "Kickoff pack created. Next step: `/2-plans-and-tasks`" 
