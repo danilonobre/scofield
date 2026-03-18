@@ -13,11 +13,10 @@ Read this entire file before starting. For each session:
 2. Where you find consecutive filled answers, present them as a group and ask the user to confirm or edit before proceeding.
 3. Where you find a blank answer, ask the question interactively and wait for the user's response before moving on.
 4. Never reorder questions. Never skip a question. Acceleration only applies to consecutive filled blocks.
-5. After each answer is confirmed, immediately update the corresponding field in this file with the user's answer, replacing the `<!-- your answer here -->` comment.
-6. At the end of each session, summarize what was defined and wait for explicit confirmation before starting the next session.
-7. After all 5 sessions are complete, generate all spec files and the appropriate AI config files (CLAUDE.md, .cursorrules, or both — based on Session 2). Then proceed immediately to Session 6.
+5. At the end of each session, summarize what was defined and wait for explicit confirmation before starting the next session.
+6. After all 5 sessions are complete, generate all spec files and the appropriate AI config files (CLAUDE.md, .cursorrules, or both — based on Session 2). Then proceed immediately to Session 6.
 
-Do not generate spec files before Session 5 is confirmed. Updating this file with confirmed answers is the only exception to this rule.
+Do not create or modify any file before Session 5 is confirmed.
 
 The spec folder is named `specs/` — never `spec/`. The work folder is named `work/` — never `works/`. Always use these exact names.
 
@@ -136,14 +135,20 @@ The spec folder is named `specs/` — never `spec/`. The work folder is named `w
 **4.5 Icon strategy: (standard library / custom / both)**
 <!-- your answer here -->
 
+*After confirming 4.5: populate `specs/ui/icons/_map.md` with the icon inventory. If any icons are custom, create one `specs/ui/icons/[icon-name].md` file per custom icon using `_example.md` as the template.*
+
 **4.6 UI framework or component library: (if any)**
 <!-- your answer here -->
 
 **4.7 Any components you know you'll need?**
 <!-- your answer here -->
 
+*After confirming 4.7: populate `specs/ui/components/_map.md` with the component list, then create one `specs/ui/components/[component-name].md` file per component using `_example.md` as the template. Fill each file with as much detail as the specs allow.*
+
 **4.8 What are the main screens?**
 <!-- your answer here -->
+
+*After confirming 4.8: populate `specs/ui/screens/_map.md` with the screen list, then create one `specs/ui/screens/[screen-name].md` file per screen using `_example.md` as the template. Fill each file with as much detail as the specs allow.*
 
 **4.9 Any specific UX flows to define upfront?**
 <!-- your answer here -->
@@ -199,4 +204,4 @@ Present the plan and stop for user confirmation.
 After confirmation:
 - Create `work/changes/YYYY-MM-DD_feature_kickoff.md` documenting every feature from `specs/scope.md` with: description, expected behavior, acceptance criteria, and rationale drawn from the specs.
 - Populate the **Spec artifacts** list in that file, mapping each feature to its relevant spec files.
-- Declare: "Kickoff pack created. Next step: `/2-plans-and-tasks`" 
+- Declare: "Kickoff pack created. Next step: `/2-plans-and-tasks`"

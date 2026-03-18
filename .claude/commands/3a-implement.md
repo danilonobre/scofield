@@ -4,6 +4,7 @@ We have approved plans and tasks. Now implement.
 
 Before starting:
 - Read /specs/PRODUCT_CONTEXT.md, /specs/constitution.md, and the relevant task file for this pack.
+- Create a branch named `pack/YYYY-MM-DD` from main if it does not already exist.
 
 Rules:
 - Implement one task at a time.

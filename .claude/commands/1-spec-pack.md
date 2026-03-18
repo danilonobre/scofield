@@ -1,6 +1,6 @@
 # Spec Pack
 
-We have an existing implementation. We need to fix bugs and/or add features. Keep /spec as the source of truth.
+We have an existing implementation. We need to fix bugs and/or add features. Keep /specs as the source of truth.
 Do NOT implement yet.
 
 Before starting, read /specs/PRODUCT_CONTEXT.md, /specs/DECISIONS.md, and /specs/GLOSSARY.md to align with existing product intent. Do not read Figma at this stage.

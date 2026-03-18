@@ -29,7 +29,7 @@ The spec folder is named `specs/` — not `spec/`. The work folder is named `wor
 ## Spec authority
 
 - Behavioral authority: `specs/` markdown files in this repository.
-- Visual authority: `specs/ui/design-tokens.md`.
+- Visual authority: `specs/ui/_tokens.md` and Figma via MCP.
 - On conflict, behavioral specs win.
 - Do not implement behavior that contradicts the specs without updating the specs first and confirming with the user.
 
@@ -44,7 +44,7 @@ This project uses a 6-step spec-driven development workflow:
 3a. `/3a-implement` — implement based on plans and tasks
 3b. `/3b-test` — run and validate tests after implementation
 4. `/4-spec-sync` — sync code and specs
-5. `/5-deploy` — merge pack branch to main
+5. `/5-deploy` — merge pack branch to main, delete the pack branch
 
 Each step has a confirmation checkpoint. Never advance to the next step without explicit user confirmation.
 
@@ -68,10 +68,12 @@ Before starting any workflow step:
 ## Git workflow
 
 - When starting a new pack, create a branch named `pack/YYYY-MM-DD` from main.
-- Commit atomically — one commit per bug fix, one commit per feature.
+- Commit atomically during implementation — one commit per bug fix, one commit per feature.
 - Use conventional commit prefixes: `fix:` for bugs, `feat:` for features.
 - Never commit everything in a single lump commit at the end.
+- Never include `.claude/worktrees/` in any commit — these are internal session artifacts.
 - Do not merge to main — that is handled by `/5-deploy` with explicit user confirmation.
+- After merging, delete the pack branch locally (`git branch -d pack/YYYY-MM-DD`).
 
 ---
 
@@ -101,11 +103,13 @@ After any code change is confirmed working, always ask the user:
 
 Wait for confirmation before modifying any file under `specs/`. Only update specs after the user explicitly says yes.
 
+This applies to every session, for every code change — regardless of how small.
+
 ---
 
 ## Deviations and ambiguity
 
-- Any deviation from spec during implementation must be documented immediately in an "Implementation Notes" block in the relevant task file.
+- Any deviation from spec during implementation must be documented immediately in an "Implementation Notes" block in the relevant task file. Do not accumulate deviations silently for the sync pass.
 - If a spec is ambiguous or incomplete, stop and ask before assuming. Never fill gaps with assumptions that could affect behavior.
 
 ---
@@ -118,9 +122,20 @@ At the end of each step, always tell the user what the next step is and what com
 
 ## Token efficiency
 
-- Only read spec files that are directly relevant to the current task.
-- Keep sessions focused on a single step of the workflow.
-- If a bug fix fails after 2 attempts, stop. Summarize what was tried, ask for guidance.
+**Figma MCP:** Only use Figma MCP when a task explicitly requires visual reference. Do not read Figma nodes speculatively or for confirmation — trust the specs for behavior and only use Figma when specs do not cover the visual detail needed.
+
+**Session length:** Keep sessions focused on a single step of the workflow. If a session is becoming long, flag it to the user and suggest starting a fresh session for the next step.
+
+**Bug fix iterations:** If a bug fix fails after 2 attempts, stop immediately. Do not attempt a third fix. Instead, summarize what was tried and what failed, and ask the user for guidance before continuing.
+
+---
+
+## Cost tracking
+
+At the start of every workflow step, note the estimated session cost as COST_START.
+
+At the end of every workflow step, before asking for confirmation, report:
+- Model, input tokens, output tokens, total tokens, estimated cost for this step.
 
 ---
 
