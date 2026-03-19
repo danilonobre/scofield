@@ -1,3 +1,4 @@
+<!-- scofield:base:start -->
 # CLAUDE.md — Project rules and workflow
 
 ## Project stack
@@ -153,3 +154,8 @@ CSS Module class names must be semantic and descriptive of the element's role or
 Never use generic names like `root`, `content`, `wrapper`, `children`, or `container` alone.
 Always combine with context: `sidebarHeader`, `boardArea`, `itemCardBody`, `sectionList`.
 Good examples: `loginScreen`, `projectSelector`, `inputField`, `submitButton`, `itemCard`, `doneToast`.
+<!-- scofield:base:end -->
+
+## Project overrides
+
+<!-- Add project-specific rules here. This section is never touched by scofield update. -->

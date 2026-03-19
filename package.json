@@ -1,0 +1,11 @@
+{
+  "name": "scofield-cli",
+  "version": "1.0.0",
+  "description": "Spec-Driven Development framework for solo builders",
+  "bin": {
+    "scofield": "./bin/scofield.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,6 +1,6 @@
 # Scofield
 
-**A spec-driven development template for solo product builders.**
+**A Spec-Driven Development framework for solo builders who use AI coding tools.**
 
 Michael Scofield didn't walk into Fox River and improvise. He tattooed the entire plan on his body before taking a single step. That's the idea here — spec first, then execute.
 
@@ -8,49 +8,17 @@ Michael Scofield didn't walk into Fox River and improvise. He tattooed the entir
 
 ## What it is
 
-Scofield is a git repository template that gives you a complete spec-driven development framework out of the box. You clone it, run a bootstrap session with your AI tool, and end up with a fully structured project spec — ready to develop against.
-
-It's built for solo builders who use AI coding tools (Claude Code or Cursor) and want their AI to work from a reliable source of truth instead of guessing from context.
-
----
-
-## Philosophy
-
-Most AI-assisted development fails not because the AI is bad at coding, but because it doesn't know enough about what you're building. It fills gaps with assumptions. It reinvents decisions you already made. It drifts.
-
-Scofield solves this by making the spec the authority. Before any code is written, you define what the product is, how it works, what it looks like, and what the rules are. Every development session starts from that foundation. The AI reads the spec, not the conversation history.
+Scofield is a framework that makes the spec the authority. Before any code is written, you define what the product is, how it works, what it looks like, and what the rules are. Every development session starts from that foundation. The AI reads the spec, not the conversation history.
 
 The result: less correction, less drift, more execution.
 
 ---
 
-## Features
+## The two pillars
 
-- **5-session bootstrap** — guided setup that takes you from zero to a complete project spec, one question at a time
-- **Figma MCP integration** — extract design tokens, components, icons, and screens directly from your Figma file during bootstrap
-- **6-step development workflow** — spec → plan → implement → test → sync → deploy, with slash commands for Claude Code and Cursor
-- **Sync utils** — `/tokens-sync`, `/icons-sync`, `/fonts-sync`, `/components-sync`, `/screens-sync` keep your specs in sync with Figma as the design evolves
-- **Structured spec folder** — every aspect of the product has a home: domain entities, UI tokens, components, screens, UX flows, architecture rules, decisions, glossary
-- **work/ separation** — operational artifacts (plans, tasks, changelogs) live outside `specs/`, keeping the spec clean as the source of truth
-- **Git workflow built in** — branching, atomic commits, and deploy rules are part of the framework, not an afterthought
-- **Claude Code + Cursor** — identical command sets for both tools; bootstrap generates the right config for whichever you use
+### 1. The Workflow
 
----
-
-## How it works
-
-```
-1. Clone Scofield
-2. Open your project in Claude Code or Cursor
-3. Paste the bootstrap prompt
-4. Answer ~30 questions across 5 sessions
-5. You now have a complete project spec
-6. Run /1-spec-pack whenever you're ready to build
-```
-
-The bootstrap covers everything: what the product is, who it's for, the tech stack, domain entities, design tokens, components, screens, and user flows. By the end, your AI has everything it needs to work without asking.
-
-During development, the 6-step workflow keeps specs and code in sync:
+A 6-step development cycle run through IDE commands:
 
 ```
 /1-spec-pack       → define what to build (bugs + features)
@@ -61,98 +29,135 @@ During development, the 6-step workflow keeps specs and code in sync:
 /5-deploy          → merge to main
 ```
 
+Each step has a confirmation checkpoint. The spec is always the source of truth.
+
+### 2. The Mentor
+
+An AI consultant invoked at any time via `/mentor`. It reads all spec files, identifies gaps and vague sections, asks targeted questions, and writes answers directly into your specs — with your approval.
+
+The Mentor is not part of the numbered workflow. It runs independently, before or after any step, whenever the specs need attention.
+
 ---
 
 ## Getting started
 
-**1. Clone the template**
+```bash
+npm install -g scofield-cli
+cd your-project
+scofield init
+```
+
+Then open Claude Code or Cursor and run `/mentor` to fill your specs.
+
+---
+
+## Updating
 
 ```bash
-git clone https://github.com/your-username/scofield.git my-project
-cd my-project
+scofield update
 ```
 
-**2. Open in Claude Code or Cursor**
+Updates all framework files — commands, base config, new spec templates — without touching your specs or project-specific rules. Displays a summary of every change with context on the impact.
+
+---
+
+## Extensions
 
 ```bash
-claude  # Claude Code
-# or open in Cursor
+scofield extension add <owner/repo>
 ```
 
-**3. Paste the bootstrap prompt**
+Installs a curated extension into the project. Extensions contribute:
+- **IDE commands** — new slash commands for Claude Code and Cursor
+- **Runtime packages** — npm packages installed globally
+- **Agent context** — additional context injected into CLAUDE.md for AI sessions
 
-```
-Read bootstrap.md and follow its instructions exactly.
-Do not skip any session or checkpoint.
-Do not create or modify any file before instructed.
-Start with Session 1.
-```
-
-That's it. The AI takes it from there.
+Installed extensions are tracked in `.scofield/extensions/_extensions.json`.
 
 ---
 
 ## Repository structure
 
 ```
-scofield/
-├── README.md
-├── CLAUDE.md              ← rules for Claude Code
-├── .cursorrules           ← rules for Cursor
-├── bootstrap.md           ← paste this into your AI tool to set up the project
-├── specs/
-│   ├── PRODUCT_CONTEXT.md ← what the product is, who it's for, why it exists
-│   ├── DECISIONS.md       ← architecture decision records (ADRs)
-│   ├── GLOSSARY.md        ← canonical terms used across specs and code
-│   ├── constitution.md    ← non-negotiables that can never be violated
-│   ├── scope.md           ← what's in and out of the current phase
+your-project/
+├── CLAUDE.md                  ← framework base (in markers) + your project overrides
+├── .cursorrules               ← same as CLAUDE.md, for Cursor
+├── specs/                     ← your spec files (you own these)
+│   ├── PRODUCT_CONTEXT.md     ← what the product is, who it's for, why it exists
+│   ├── DECISIONS.md           ← architecture decision records
+│   ├── GLOSSARY.md            ← canonical terms used across specs and code
+│   ├── constitution.md        ← non-negotiables that can never be violated
+│   ├── scope.md               ← what's in and out of the current phase
 │   ├── domain/
-│   │   ├── entities.md          ← data model and relationships
-│   │   └── pipeline-rules.md    ← AI pipeline rules (optional)
+│   │   ├── entities.md        ← data model and relationships
+│   │   └── pipeline-rules.md  ← AI pipeline rules (optional)
 │   ├── ui/
-│   │   ├── _tokens.md           ← design tokens (colors, typography, spacing)
-│   │   ├── components/
-│   │   │   ├── _map.md          ← component inventory
-│   │   │   ├── _example.md
-│   │   │   └── [component].md
-│   │   ├── icons/
-│   │   │   ├── _map.md
-│   │   │   ├── _example.md
-│   │   │   └── [icon].md        ← only for custom icons
-│   │   ├── fonts/
-│   │   │   ├── _map.md
-│   │   │   ├── _example.md
-│   │   │   └── [font].md        ← only for custom fonts
-│   │   └── screens/
-│   │       ├── _map.md
-│   │       ├── _example.md
-│   │       └── [screen].md
+│   │   ├── _tokens.md         ← design tokens: colors, typography, spacing
+│   │   ├── components/        ← component specs
+│   │   ├── icons/             ← icon inventory
+│   │   ├── fonts/             ← font definitions
+│   │   └── screens/           ← screen specs
 │   ├── ux/
-│   │   ├── guidelines.md        ← interaction patterns and UX rules
-│   │   └── flows/
-│   │       └── [flow].md        ← one file per user flow
+│   │   ├── guidelines.md      ← interaction patterns and UX rules
+│   │   └── flows/             ← one file per user flow
 │   └── architecture/
 │       ├── frontend.md
-│       ├── backend.md           ← optional
-│       ├── ai.md                ← optional
-│       └── database.md          ← optional
-├── work/
-│   ├── changes/           ← spec changelog, kept after deploy
-│   ├── plans/             ← implementation plans, deleted after deploy
-│   └── tasks/             ← atomic tasks, deleted after deploy
+│       ├── backend.md
+│       ├── ai.md
+│       └── database.md
+├── work/                      ← operational artifacts (plans, tasks, changelogs)
+│   ├── changes/               ← spec changelogs, kept after deploy
+│   ├── plans/                 ← implementation plans, deleted after deploy
+│   └── tasks/                 ← atomic tasks, deleted after deploy
+├── .scofield/                 ← framework-owned directory (do not edit manually)
+│   ├── version                ← installed framework version
+│   ├── templates/             ← empty spec file templates
+│   ├── archived/              ← spec files removed in past updates
+│   └── extensions/            ← extension registry and context files
 ├── .claude/
-│   └── commands/          ← slash commands for Claude Code
-│       └── utils/         ← sync utilities
+│   └── commands/              ← slash commands for Claude Code
 └── .cursor/
-    └── commands/          ← same commands for Cursor
-        └── utils/
+    └── commands/              ← same commands for Cursor
 ```
+
+**Framework files** (owned by Scofield, updated by `scofield update`): `.scofield/`, `CLAUDE.base.md`, `.claude/commands/`, `.cursor/commands/`
+
+**Project files** (created by `scofield init`, owned by you, never touched by `scofield update`): `specs/`, `work/`, `CLAUDE.md` overrides section, `.cursorrules` overrides section
 
 ---
 
-## Sync utilities
+## The spec format
 
-If you connect a Figma file during bootstrap, Scofield provides sync utilities to keep your specs up to date as the design evolves. Run them whenever something changes in Figma:
+Every spec file uses `<!-- mentor -->` comment blocks to guide the Mentor:
+
+```markdown
+<!-- mentor:file
+Description of this file's purpose.
+priority: critical|high|medium|low
+-->
+
+# File Title
+
+## Section Name
+
+<!-- mentor
+What should be in this section, and the quality signals that define a good answer.
+
+quality signals:
+- Specific, objective criterion
+- Another criterion
+-->
+
+(your content here)
+```
+
+The `<!-- mentor -->` blocks are never removed after you fill in content — they remain as a permanent reference and are used by the Mentor to evaluate whether a section is empty, vague, or complete.
+
+---
+
+## Figma sync
+
+If your design lives in Figma, Scofield provides sync utilities to keep your specs current as the design evolves:
 
 | Command | What it syncs |
 |---|---|
@@ -166,10 +171,10 @@ Components and screens each have a `figma_url:` field in their spec file. Fill i
 
 ---
 
-## The spec is the source of truth
+## Why "Scofield"
 
-`specs/` contains only what the product *is* — not what's being worked on right now. Plans, tasks, and changelogs live in `work/` and are cleaned up after each deploy. This keeps the spec stable and readable at any point in the project's life.
+Michael Scofield had a plan. You should too.
 
 ---
 
-*Named after Michael Scofield. He had a plan. You should too.*
+*Named after Michael Scofield from Prison Break.*

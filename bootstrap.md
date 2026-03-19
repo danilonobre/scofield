@@ -1,5 +1,8 @@
 # Scofield Bootstrap
 
+> **Deprecated as of v1.0.0.** Use `scofield init` to set up a project and `/mentor`
+> to fill the specs intelligently. This file is kept for historical reference only.
+
 This file is your project setup prompt. Drag it into Claude Code or Cursor and the AI will guide you through the full bootstrap — session by session.
 
 If you've filled in answers below before starting, the AI will confirm them in groups rather than asking one by one. Leave any field blank and the AI will ask you interactively.
