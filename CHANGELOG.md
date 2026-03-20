@@ -5,6 +5,37 @@ Format: `+` added, `~` changed, `-` removed, `!` renamed or breaking.
 
 ---
 
+## [1.1.0] — 2026-03-20
+
++ DocGuard extension added to registry
+  → First curated Scofield extension. Fetches 4 IDE commands directly from
+    raccioly/docguard on install (/docguard-guard, /docguard-review,
+    /docguard-fix, /docguard-score) and installs the docguard-cli runtime.
+    Install with: scofield extension add raccioly/docguard
+
++ `scofield extension update <name>` added
+  → Updates an installed extension by re-fetching its commands from the remote
+    repo. Warns if any declared command file is not found (manifest may be
+    outdated).
+
++ `scofield extension list` added
+  → Lists all installed extensions with name, version, and source.
+
+~ `scofield update` — now checks extension updates
+  → After updating framework files, checks all installed extensions for newer
+    versions and reports which ones can be updated.
+
+~ `/4-spec-sync` updated — DocGuard quality gate suggestion
+  → After syncing specs, suggests running /docguard-guard with a recommendation
+    level based on sync scope. Only shown if DocGuard is installed.
+
+~ `/mentor` updated — extension suggestion flow
+  → When the Mentor detects an extensions: field and the extension is not
+    installed, it reads the extension readme (or manifest description) and
+    presents it with context before asking if the user wants to install it.
+
+---
+
 ## [1.0.0] — 2026-03-19
 
 This release transforms Scofield from a git template into an installable npm package with a CLI, an extension system, and The Mentor.
