@@ -1,0 +1,26 @@
+{
+  "name": "docguard",
+  "version": "0.9.9",
+  "description": "Canonical-Driven Development enforcement layer. Validates spec quality with 19 automated validators, semantic cross-document analysis, and AI-driven documentation repair.",
+  "source": "raccioly/docguard",
+  "contributes": {
+    "commands": {
+      "claude": [
+        "commands/docguard.guard.md",
+        "commands/docguard.review.md",
+        "commands/docguard.fix.md",
+        "commands/docguard.score.md"
+      ],
+      "cursor": [
+        "commands/docguard.guard.md",
+        "commands/docguard.review.md",
+        "commands/docguard.fix.md",
+        "commands/docguard.score.md"
+      ]
+    },
+    "runtime": {
+      "package": "docguard-cli",
+      "manager": "npm"
+    }
+  }
+}
