@@ -61,4 +61,41 @@ $ARGUMENTS
 
 After syncing, list all changes made to specs and files deleted, and stop for confirmation.
 
+---
+
+## Optional quality gate
+
+After listing all changes, evaluate the scope of this sync and check whether
+DocGuard is installed by reading `.scofield/extensions/_extensions.json`.
+
+If DocGuard is not installed, skip this section entirely — do not mention it.
+
+If DocGuard is installed, apply this recommendation level based on sync scope:
+
+**Strongly recommended** — if any of these are true:
+- Implementation deviations were recorded during this pack
+- 3 or more spec files were updated
+- New spec files were created
+
+Output:
+⚠️ Strongly recommended: run /docguard-guard
+Significant spec changes were made in this sync. DocGuard can catch
+inconsistencies between what was documented and what was built.
+
+**Recommended** — if 1-2 existing spec files were updated with meaningful content:
+
+Output:
+Recommended: run /docguard-guard
+Specs were updated. DocGuard can validate consistency across documents.
+
+**Optional** — if only GLOSSARY.md, DECISIONS.md, or minor additions were touched:
+
+Output:
+Optional: run /docguard-guard
+Minor spec updates. DocGuard available if you want a quality check.
+
+**No suggestion** — if no spec changes were made in this sync.
+
+---
+
 Next step: /5-deploy
