@@ -54,4 +54,8 @@ quality signals:
 - Any query performance rules are stated (no N+1 queries, always use indexes on foreign keys)
 - Backup and recovery approach is noted if relevant to development decisions
 - Any data that must never be deleted (vs soft-deleted) is identified
+
+extensions:
+- docguard: architecture validator checks that layer boundaries defined
+  here are respected in actual imports and module structure.
 -->

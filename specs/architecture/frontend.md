@@ -37,4 +37,8 @@ quality signals:
 - Any "never do X" rules are explicit
 - Patterns that differ from framework defaults are documented
 - State management patterns are described (when to use local vs global state)
+
+extensions:
+- docguard: architecture validator checks that layer boundaries defined
+  here are respected in actual imports and module structure.
 -->

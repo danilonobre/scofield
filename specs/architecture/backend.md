@@ -38,4 +38,8 @@ quality signals:
 - Error handling conventions are described
 - Any sensitive data handling rules are explicit (no PII in logs, etc.)
 - Rate limiting behavior is described if applicable
+
+extensions:
+- docguard: architecture validator checks that layer boundaries defined
+  here are respected in actual imports and module structure.
 -->

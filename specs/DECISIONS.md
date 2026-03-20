@@ -1,6 +1,10 @@
 <!-- mentor:file
 A record of deliberate decisions made during design and development. Each entry should explain the problem, the options considered, the choice made, and the rationale. The Mentor uses this file to avoid re-litigating settled questions and to ensure new decisions don't contradict existing ones. An empty decisions file almost always means important choices were made implicitly — and will be made differently by the AI every time.
 priority: high
+
+extensions:
+- docguard: validates traceability between decisions and implementation.
+  Detects when documented decisions are contradicted by the codebase.
 -->
 
 # Architecture and Design Decisions
