@@ -1,5 +1,5 @@
 {
-  "name": "scofield-cli",
+  "name": "@danilonobre/scofield",
   "version": "1.0.0",
   "description": "Spec-Driven Development framework for solo builders",
   "bin": {
@@ -7,5 +7,15 @@
   },
   "engines": {
     "node": ">=18"
-  }
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    ".claude/",
+    ".cursor/",
+    ".scofield/templates/",
+    ".scofield/version",
+    "CLAUDE.base.md",
+    "CHANGELOG.md"
+  ]
 }

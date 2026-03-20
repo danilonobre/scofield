@@ -2,22 +2,7 @@
 
 ## Project stack
 
-- React 18 + TypeScript + Vite
-- Zustand for state management
-- Supabase for auth, database, and edge functions
-- Anthropic Claude API (claude-sonnet-4-6) via Supabase Edge Functions
-- Geist + Geist Mono fonts
-- Phosphor Icons
-
 ## Key constraints (see specs/constitution.md for full list)
-
-- Desktop-first layout. Sidebar fixed left, board area fills remaining space.
-- All sections always visible simultaneously — no tabs, no navigation.
-- All spacing must be multiples of 4px.
-- No localStorage or sessionStorage. All data goes through Supabase.
-- Claude API calls must go through Supabase Edge Functions only — never from the browser.
-- Every item is created via AI pipeline. No manual item creation.
-
 ---
 
 ## Folder names
