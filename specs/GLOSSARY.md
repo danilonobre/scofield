@@ -22,6 +22,12 @@ quality signals:
 - Status values for each entity are listed or cross-referenced
 -->
 
+**Extension** — A curated add-on that contributes IDE commands (and optionally a runtime package) to a Scofield project. Extensions are installed via `scofield extension add <owner/repo>` and tracked in `.scofield/extensions/_extensions.json`. Each extension is defined by a manifest in the Scofield registry.
+
+**Extension manifest** — A JSON file at `.scofield/extensions/<name>.json` inside the Scofield source that describes an extension: its name, version, source repo, contributed commands, and optional runtime package. The manifest is maintained by Scofield, not by the extension author.
+
+**Extension registry** — The local record of installed extensions in a project, stored at `.scofield/extensions/_extensions.json`. Tracks name, version, source, install date, and what was contributed for each installed extension.
+
 ---
 
 ## UI Terms
