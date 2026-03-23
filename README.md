@@ -63,16 +63,23 @@ Updates all framework files — commands, base config, new spec templates — wi
 
 ## Extensions
 
+Extensions add capabilities on top of the core framework. Each extension contributes IDE commands (and optionally a runtime package) fetched directly from the extension's GitHub repo at install time.
+
 ```bash
-scofield extension add <owner/repo>
+scofield extension add <owner/repo>     # install
+scofield extension update <name>        # update to latest
+scofield extension list                 # list installed
 ```
 
-Installs a curated extension into the project. Extensions contribute:
-- **IDE commands** — new slash commands for Claude Code and Cursor
-- **Runtime packages** — npm packages installed globally
-- **Agent context** — additional context injected into CLAUDE.md for AI sessions
+`scofield update` also checks for extension updates automatically.
 
 Installed extensions are tracked in `.scofield/extensions/_extensions.json`.
+
+### Available extensions
+
+| Extension | Install | What it adds |
+|-----------|---------|--------------|
+| **DocGuard** | `scofield extension add raccioly/docguard` | Canonical-Driven Development enforcement. 19 automated validators, semantic cross-document analysis, AI-driven doc repair, and a CDD maturity score. Adds `/docguard-guard`, `/docguard-review`, `/docguard-fix`, `/docguard-score`. |
 
 ---
 
