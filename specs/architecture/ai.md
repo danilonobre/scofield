@@ -42,6 +42,10 @@ quality signals:
 - Retry and fallback behavior is described
 - Any content moderation or output filtering requirements are stated
 - Project-specific AI rules are added beyond the default security requirement
+
+extensions:
+- docguard: architecture validator checks that layer boundaries defined
+  here are respected in actual imports and module structure.
 -->
 
 - API key must never be exposed to the client.

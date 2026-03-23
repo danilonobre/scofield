@@ -14,6 +14,10 @@ quality signals:
 - Every entity in the product is represented in the map
 - Cardinality is explicit (0..n not just "many")
 - Ownership is clear (who belongs to whom)
+
+extensions:
+- docguard: schema-sync validator checks that entities documented here
+  match actual database models in the codebase.
 -->
 
 ```

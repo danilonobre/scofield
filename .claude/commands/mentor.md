@@ -26,9 +26,17 @@ When invoked:
 8. If the user does not answer something or says "skip", leave it blank —
    never invent content.
 
-9. If you find an extensions: field in a <!-- mentor --> and the extension is not
-   installed in .scofield/extensions/_extensions.json, present the extension to the
-   user with the context of why it makes sense there and ask if they want to install it.
+9. If you find an `extensions:` field in a `<!-- mentor -->` or `<!-- mentor:file -->`
+   and the extension is not installed in `.scofield/extensions/_extensions.json`:
+
+   a. Check if `.scofield/extensions/<extension-name>-readme.md` exists.
+      - If it exists: read it and use its content to present the extension.
+      - If it does not exist: use the `description` field from
+        `.scofield/extensions/<extension-name>.json`.
+   b. Present the extension to the user — what it is, what it adds, and why
+      it makes sense in this specific section of the specs.
+   c. Ask: "Would you like to install it? Run: scofield extension add <source>"
+   d. Do not install it yourself — the user runs the CLI command.
 
 10. At the end, display a summary of updated sections.
 

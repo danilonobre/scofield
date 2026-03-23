@@ -34,7 +34,8 @@ quality signals:
 - There are at least rules for: data handling, UI constraints, and security
 
 extensions:
-- docguard: Enforces non-negotiable rules during code review with automated scoring and pre-commit hooks
+- docguard: enforces these non-negotiables automatically with 19 validators.
+  Catches drift, stale docs, and spec violations before they reach main.
 -->
 
 ---
