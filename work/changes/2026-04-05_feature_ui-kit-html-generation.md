@@ -121,19 +121,51 @@ O arquivo gerado se chama `UI_KIT.html` e fica em `specs/ui/UI_KIT.html`. É sem
 
 Essa regra substitui qualquer instrução anterior que implique geração automática ou regeneração silenciosa.
 
-### Template base atualizado
+### Arquitetura de marcadores — `UI_KIT.html`
 
-O template HTML deve incluir:
-- CSS completo com as classes: `.layout`, `.sidebar`, `.sb-*`, `.main`, `.hero`, `.section`, `.rule-block`, `.comp-demo`, `.ann-box`, `.state-lbl`, `.hint`
-- JavaScript para: `toggleSection()` (grupos expansíveis no sidebar), `toggleAnn()` (ann-box), `go()` (scroll suave + active link), interações específicas de cada componente
-- O template deve ser autocontido (sem dependências externas, exceto Google Fonts se o projeto usar)
+O `UI_KIT.html` usa marcadores para permitir edições cirúrgicas sem regeneração completa do arquivo.
+
+**Estrutura de zonas:**
+
+```html
+<!-- kit:shell:start -->
+  <style>/* CSS completo — gerado uma vez */</style>
+  <script>/* JS de navegação e interações */</script>
+  <!-- layout: sidebar, hero, #agent-rules -->
+<!-- kit:shell:end -->
+
+<!-- kit:items:start -->
+  <!-- kit:item:NomeComponente:start -->
+    <section id="nome-componente">...</section>
+  <!-- kit:item:NomeComponente:end -->
+<!-- kit:items:end -->
+
+<!-- kit:fundamentals:start -->
+  <!-- tokens, tipografia, espaçamento, motion -->
+<!-- kit:fundamentals:end -->
+```
+
+**Regras de edição por operação:**
+
+| Operação | O que o agente toca |
+|---|---|
+| Primeira geração | Escreve o arquivo completo |
+| Novo componente | Appenda `<!-- kit:item:[nome] -->` antes de `kit:items:end` |
+| Atualizar componente | Substitui só entre `kit:item:[nome]:start` e `kit:item:[nome]:end` |
+| Alterar fundamentos | Substitui só `kit:fundamentals` |
+| Alterar CSS/JS global | Substitui só `kit:shell` |
+
+**O que o `UI_KIT.md` contém** (não contém o CSS/JS completo — eles ficam no `.html`):
+- A convenção de marcadores (acima)
+- Um template de seção de componente: shape de uma `<section>` completa com comp-demo, state-lbl, hint e ann-box (~40 linhas)
+- As regras de geração/edição
 
 ---
 
 ## Acceptance Criteria
 
-1. `specs/ui/UI_KIT.md` contém um template HTML atualizado que inclui: sidebar com grupos expansíveis, hero banner, seção de regras para agentes com 3 rule-blocks, estrutura de seção de componente (eyebrow + title + desc + comp-demo + ann-box), e todas as classes CSS necessárias.
-2. O template HTML inclui JavaScript funcional para: navegação com scroll suave, grupos de sidebar expansíveis, ann-boxes expansíveis.
+1. `specs/ui/UI_KIT.md` contém: (a) a convenção de marcadores de zona (`kit:shell`, `kit:items`, `kit:item:[nome]`, `kit:fundamentals`), (b) um template de seção de componente completo (~40 linhas) com comp-demo, state-lbl, hint e ann-box, (c) as regras de edição por operação. Não contém o CSS/JS completo.
+2. O CSS e JS completos vivem no `specs/ui/UI_KIT.html` gerado, dentro da zona `kit:shell`. São gerados uma vez e editados somente se o design system global mudar.
 3. As instruções de geração no `mentor.md` explicitam que componentes devem ser implementados com **todos os estados interativos**.
 4. As instruções em `3a-implement.md` explicitam que ao renderizar um item no artifact para aprovação, todos os estados e interações do componente devem estar funcionando.
 5. A seção "Regras para agentes" é sempre gerada como a primeira seção do main, com os 3 rule-blocks (MUST, NEVER, CTX) populados com as regras e contexto do projeto específico.
