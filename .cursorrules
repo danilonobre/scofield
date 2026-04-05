@@ -30,7 +30,7 @@ The spec folder is named `specs/` — not `spec/`. The work folder is named `wor
 ## Spec authority
 
 - Behavioral authority: `specs/` markdown files in this repository.
-- Visual authority: `specs/ui/_tokens.md` and Figma via MCP.
+- Visual authority: `specs/ui/UI_KIT.md`, `specs/ui/_tokens.md`, and Figma via MCP.
 - On conflict, behavioral specs win.
 - Do not implement behavior that contradicts the specs without updating the specs first and confirming with the user.
 
@@ -137,6 +137,19 @@ At the start of every workflow step, note the estimated session cost as COST_STA
 
 At the end of every workflow step, before asking for confirmation, report:
 - Model, input tokens, output tokens, total tokens, estimated cost for this step.
+
+---
+
+## UI Kit
+
+`specs/ui/UI_KIT.md` is the design system source of truth for this project.
+
+**Hard rules — no exceptions:**
+
+1. No UI element may be implemented unless it exists in `specs/ui/UI_KIT.md` with `status: approved`.
+2. No item with `status: approved` may be altered without explicit user approval in the current session.
+
+These rules apply to tokens, typography, colors, spacing, component specs, and any other item tracked in `UI_KIT.md`. The enforcement gate lives in `/3a-implement`. The approval flow lives in `/mentor`.
 
 ---
 
