@@ -14,6 +14,30 @@ Rules:
 - If a task is ambiguous, stop and ask before assuming.
 - If a bug fix fails after 2 attempts, stop. Summarize what was tried and what failed, and ask the user for guidance before continuing.
 
+UI Kit approval gate — run before implementing any task that introduces or modifies a UI element:
+
+1. **Element already approved:** Check `specs/ui/UI_KIT.md`. If the element exists with
+   `status: approved`, proceed with implementation immediately.
+
+2. **Element in UI Kit delta (CREATE):** The element is new and listed in the plan's UI Kit delta.
+   - Render it in isolation using the HTML artifact template from `specs/ui/UI_KIT.md`.
+     Apply the `.pending` class and `.badge-pending` badge.
+   - List the pending item in the prompt output.
+   - Stop and wait for explicit user approval.
+   - After approval: update `status: approved` in `UI_KIT.md`, then implement in project code.
+
+3. **Element in UI Kit delta (ALTER):** An approved item must change.
+   - Present the change explicitly: "**[item name]**: `[old value]` → `[new value]`"
+   - Stop and wait for explicit user approval.
+   - After approval: update the item value and keep `status: approved` in `UI_KIT.md`,
+     then implement in project code.
+
+4. **Element not in `UI_KIT.md` at all:** Stop. Do not implement.
+   Tell the user: "This element ([name]) is not in the UI Kit. Add it via the approval flow
+   in /mentor before I can implement it." Wait for guidance.
+
+Do not write any project code for a UI element before its `UI_KIT.md` entry is `approved`.
+
 $ARGUMENTS
 
 After implementation:
