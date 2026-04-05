@@ -62,7 +62,21 @@ quality signals:
 
 **Choice:** Option 2 — mandatory `specs/ui/UI_KIT.md` with `pending`/`approved` status per item and an approval gate at `/3a-implement`.
 
-**Rationale:** Option 1 relies on agent self-discipline, which degrades across sessions and is not auditable. Option 2 makes the visual source of truth explicit, versioned, and user-controlled. The approval gate at `/3a-implement` is the enforcement point — without it, the rules in `CLAUDE.md` would be advisory only. The HTML artifact is always regenerated from the file (never stateful) to ensure the visual review reflects the actual spec, not a cached render.
+**Rationale:** Option 1 relies on agent self-discipline, which degrades across sessions and is not auditable. Option 2 makes the visual source of truth explicit, versioned, and user-controlled. The approval gate at `/3a-implement` is the enforcement point — without it, the rules in `CLAUDE.md` would be advisory only. The HTML artifact (`UI_KIT.html`) is generated from the file using a marker-based architecture — see ADR-03.
+
+---
+
+### ADR-03 — UI_KIT.html uses marker-based zones, not full regeneration
+
+**Problem:** The UI Kit HTML artifact needs to be updated whenever a component is added or changed. Full regeneration on every update is expensive: the agent must read the entire `UI_KIT.md`, rebuild the complete HTML (CSS + JS + all components), and write hundreds of lines even when only one component changed. Additionally, embedding the full CSS/JS in `UI_KIT.md` inflates its token cost on every read — even in sessions that never touch the HTML.
+
+**Options considered:**
+1. Full regeneration: always rewrite `UI_KIT.html` from scratch from `UI_KIT.md`. Simple to instruct; expensive to execute.
+2. Marker-based zones: divide `UI_KIT.html` into 4 zones (`kit:shell`, `kit:items`, `kit:item:[name]`, `kit:fundamentals`) with HTML comment markers. After first generation, use the Edit tool to modify only the relevant zone.
+
+**Choice:** Option 2 — marker-based zones. `UI_KIT.md` contains only the marker convention, the operations table, and a single component section template (~40 lines). The full CSS/JS lives in `UI_KIT.html` inside `kit:shell`, generated once.
+
+**Rationale:** After first generation, adding a component costs ~40 lines (one Edit call). Updating a component costs the same. The CSS/JS shell is never touched unless the global design system changes. `UI_KIT.md` stays lightweight — no embedded CSS/JS — so reading it in any session is cheap. The trade-off is that the agent must use the Edit tool correctly and respect the markers; the instructions in `mentor.md` and `3a-implement.md` are explicit about this.
 
 ---
 
