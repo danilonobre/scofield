@@ -25,97 +25,120 @@ These rules are enforced via the approval gate in `/3a-implement` and mirrored i
 
 ---
 
-## HTML artifact template
+## HTML artifact
 
-When rendering this UI Kit as an HTML artifact, always use the following scaffold. Never maintain state in the artifact — always regenerate it fresh from this file.
+The UI Kit is visualized as `specs/ui/UI_KIT.html`. This file uses a **marker-based architecture** — zones are edited surgically rather than regenerated from scratch each time.
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UI Kit</title>
-  <style>
-    /* Base */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: system-ui, sans-serif; background: #0a0a0a; color: #e5e5e5; min-height: 100vh; display: flex; }
+### Generation rules
 
-    /* Layout */
-    nav { width: 200px; min-height: 100vh; background: #111; border-right: 1px solid #222; padding: 24px 16px; position: fixed; }
-    nav h1 { font-size: 13px; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 20px; }
-    nav a { display: block; font-size: 13px; color: #aaa; text-decoration: none; padding: 6px 8px; border-radius: 4px; margin-bottom: 2px; }
-    nav a:hover, nav a.active { background: #1e1e1e; color: #fff; }
-    main { margin-left: 200px; padding: 40px 48px; flex: 1; max-width: 960px; }
+- **Never generate silently.** After any change to `UI_KIT.md`, ask the user: "Deseja que eu atualize o `UI_KIT.html`?" Only generate or edit after explicit confirmation.
+- **First generation:** write the complete file (shell + all zones). Read `specs/ui/_tokens.md` first and use the project's real tokens — not neutral placeholders.
+- **Subsequent edits:** use the Edit tool to modify only the relevant zone. Never rewrite the complete file after the first generation.
 
-    /* Section */
-    .section { margin-bottom: 64px; }
-    .section-title { font-size: 22px; font-weight: 600; color: #fff; margin-bottom: 8px; padding-bottom: 12px; border-bottom: 1px solid #222; }
-    .section-subtitle { font-size: 13px; color: #666; margin-bottom: 32px; }
+### Zone markers
 
-    /* Item */
-    .item { background: #111; border: 1px solid #222; border-radius: 8px; padding: 20px; margin-bottom: 16px; }
-    .item-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-    .item-name { font-size: 14px; font-weight: 600; color: #fff; }
-    .item-value { font-size: 12px; color: #666; font-family: monospace; }
+The file is divided into 4 zones with HTML comment markers:
 
-    /* Status badges */
-    .badge-approved { background: #14532d; color: #86efac; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 8px; border-radius: 999px; }
-    .badge-pending  { background: #713f12; color: #fde68a; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 8px; border-radius: 999px; }
+```
+<!-- kit:shell:start -->
+  <style>complete CSS</style>
+  <script>JS: go(), toggleSection(), toggleAnn()</script>
+  layout: sidebar (4 groups) + hero banner + #agent-rules section
+<!-- kit:shell:end -->
 
-    /* Pending item highlight */
-    .item.pending { border-color: #854d0e; background: #0f0a00; }
-    .item.pending .item-name { color: #fde68a; }
+<!-- kit:items:start -->
+  <!-- kit:item:ComponentName:start -->
+    <section id="component-name">...</section>
+  <!-- kit:item:ComponentName:end -->
+<!-- kit:items:end -->
 
-    /* Preview areas */
-    .preview { margin-top: 12px; padding: 16px; background: #0a0a0a; border-radius: 6px; border: 1px solid #1a1a1a; }
-    .swatch { width: 48px; height: 48px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.08); }
-    .swatch-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-    .swatch-label { font-size: 11px; color: #666; margin-top: 6px; font-family: monospace; }
-  </style>
-</head>
-<body>
-  <nav>
-    <h1>UI Kit</h1>
-    <a href="#tokens">Tokens</a>
-    <a href="#typography">Typography</a>
-    <a href="#colors">Colors</a>
-    <a href="#components">Components</a>
-  </nav>
-  <main>
-    <!-- TOKENS SECTION -->
-    <section class="section" id="tokens">
-      <div class="section-title">Tokens</div>
-      <div class="section-subtitle">Spacing, border-radius, shadows, and other design primitives.</div>
-      <!-- inject token items here -->
-    </section>
-
-    <!-- TYPOGRAPHY SECTION -->
-    <section class="section" id="typography">
-      <div class="section-title">Typography</div>
-      <div class="section-subtitle">Font families, sizes, weights, and line heights.</div>
-      <!-- inject typography items here -->
-    </section>
-
-    <!-- COLORS SECTION -->
-    <section class="section" id="colors">
-      <div class="section-title">Colors</div>
-      <div class="section-subtitle">Color palette with semantic roles.</div>
-      <!-- inject color items here -->
-    </section>
-
-    <!-- COMPONENTS SECTION -->
-    <section class="section" id="components">
-      <div class="section-title">Components</div>
-      <div class="section-subtitle">UI components with variants and usage rules.</div>
-      <!-- inject component items here -->
-    </section>
-  </main>
-</body>
-</html>
+<!-- kit:fundamentals:start -->
+  tokens, typography, spacing, motion sections
+<!-- kit:fundamentals:end -->
 ```
 
-Each item is rendered as a `.item` div (add class `pending` when `status: pending`). Include a `.badge-approved` or `.badge-pending` badge in the `.item-header`. For color items, include a `.swatch`. For typography items, render a live text sample in `.preview`. For components, render the component or a simplified representation in `.preview`.
+### Operations table
+
+| Situation | What to edit |
+|---|---|
+| First generation | Write the complete file |
+| Add a component | Edit: insert `kit:item:[name]` block before `<!-- kit:items:end -->` |
+| Update a component | Edit: replace between `kit:item:[name]:start` and `kit:item:[name]:end` |
+| Update fundamentals | Edit: replace `kit:fundamentals` zone |
+| Update global CSS/JS | Edit: replace `kit:shell` zone |
+
+### Shell contents (kit:shell)
+
+The shell is generated once and contains:
+
+**CSS classes required:**
+- Layout: `.layout`, `.sidebar`, `.sb-logo`, `.sb-wordmark`, `.sb-version`, `.sb-group`, `.sb-section-toggle`, `.sb-section-toggle.open`, `.sb-section-children`, `.sb-section-children.open`, `.sb-link`, `.sb-link.sub`, `.sb-link.active`, `.main`
+- Hero: `.hero`, `.hero-tag`, `.hero-title`, `.hero-sub`, `.hero-chips`, `.hero-chip`
+- Sections: `.section`, `.eyebrow`, `.stitle`, `.sdesc`, `.state-lbl`, `.hint`
+- Rule blocks: `.rule-block`, `.rule-block.must`, `.rule-block.never`, `.rule-block.ctx`, `.rb-title`, `.ri`, `.rd`
+- Component demo: `.comp-demo`, `.comp-grid`
+- Annotation box: `.ann-box`, `.ann-toggle`, `.ann-title`, `.ann-arr`, `.ann-body`, `.ann-inner`, `.ar`, `.ae`, `.at`
+- Status: `.badge-approved`, `.badge-pending`
+
+**JavaScript functions:**
+- `go(id, el)` — smooth scroll to section, marks link as `.active`
+- `toggleSection(btn)` — toggles `.open` on sidebar group button and its `.sb-section-children`
+- `toggleAnn(btn)` — toggles `.open` on `.ann-body`, rotates `.ann-arr`
+
+**HTML structure inside shell:**
+- Sidebar with 4 groups: "Para Agentes" (link: Regras), "Componentes" (expandable sections by domain), "Layouts", "Fundamentos"
+- Hero banner: project name, stack, version
+- Section `#agent-rules` (always first in main): 3 rule-blocks — `.must` (green, always-do rules), `.never` (red, never-do rules), `.ctx` (amber, project technical context). Content populated from project specs.
+
+### Component section template
+
+Every component entry inside `kit:items` follows this shape:
+
+```html
+<!-- kit:item:ComponentName:start -->
+<section class="section" id="component-name">
+  <div class="eyebrow">Domain Group</div>
+  <h2 class="stitle">ComponentName</h2>
+  <p class="sdesc">What this component is and when to use it.</p>
+
+  <div class="comp-demo">
+    <div class="state-lbl">Default</div>
+    <!-- render default state here, fully interactive -->
+
+    <div class="state-lbl" style="margin-top:20px">Hover / Active</div>
+    <!-- render hover/active state here -->
+
+    <div class="state-lbl" style="margin-top:20px">Disabled</div>
+    <!-- render disabled state here -->
+
+    <!-- add more states as needed: focused, selected, error, loading... -->
+
+    <div class="hint">↑ Clique para testar</div>
+  </div>
+
+  <div class="ann-box">
+    <button class="ann-toggle" onclick="toggleAnn(this)">
+      <span class="ann-title">Tokens</span>
+      <span class="ann-arr">▼</span>
+    </button>
+    <div class="ann-body">
+      <div class="ann-inner">
+        <div class="ar"><span class="ae">property</span><span class="at">token or value</span></div>
+        <!-- one .ar row per token used by this component -->
+      </div>
+    </div>
+  </div>
+</section>
+<!-- kit:item:ComponentName:end -->
+```
+
+**Component implementation rules:**
+- All documented states must be interactive in the artifact — not static screenshots
+- Hover states: use CSS `:hover` or JS `onmouseenter`/`onmouseleave`
+- Toggle/switch states: implement with JS click handlers
+- Transitions: use CSS `transition` — never hardcoded delays
+- Each state must have a `state-lbl` label above it
+- End the demo with a `hint` describing how to interact
 
 ---
 

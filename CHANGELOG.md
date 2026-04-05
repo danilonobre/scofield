@@ -5,6 +5,34 @@ Format: `+` added, `~` changed, `-` removed, `!` renamed or breaking.
 
 ---
 
+## [1.3.0] — 2026-04-05
+
++ `UI_KIT.html` marker-based architecture
+  → `specs/ui/UI_KIT.html` is now structured with 4 marker zones: `kit:shell`,
+    `kit:items`, `kit:item:[name]`, `kit:fundamentals`. After first generation,
+    the agent edits only the relevant zone using the Edit tool — never rewrites
+    the complete file. Adds a new component = ~40 lines inserted; update a
+    component = replace its zone only.
+
+~ `specs/ui/UI_KIT.md` — lighter template, marker spec
+  → No longer contains the full CSS/JS scaffold. Now contains: the marker zone
+    convention, an operations table (what to edit per situation), and a single
+    component section template (~40 lines). CSS/JS lives in the generated HTML.
+
+~ `/mentor` — no silent HTML generation, ask first
+  → After any change to UI_KIT.md, the Mentor now asks "Deseja que eu atualize
+    o UI_KIT.html?" before touching the file. First generation writes the full
+    file with real project tokens; subsequent updates use Edit tool on the
+    relevant zone only.
+
+~ `/3a-implement` — interactive states required at approval time
+  → When rendering a component for UI Kit approval, all states must be
+    interactive (hover, active, disabled, focus) — not static screenshots.
+    Each state requires a state-lbl label. After approval, asks whether to
+    update UI_KIT.html before proceeding to implementation.
+
+---
+
 ## [1.2.0] — 2026-04-05
 
 + `specs/ui/UI_KIT.md` added — mandatory design system source of truth
