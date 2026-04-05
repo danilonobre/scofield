@@ -20,17 +20,29 @@ UI Kit approval gate — run before implementing any task that introduces or mod
    `status: approved`, proceed with implementation immediately.
 
 2. **Element in UI Kit delta (CREATE):** The element is new and listed in the plan's UI Kit delta.
-   - Render it in isolation using the HTML artifact template from `specs/ui/UI_KIT.md`.
-     Apply the `.pending` class and `.badge-pending` badge.
+   - Render it in isolation as a self-contained HTML artifact following the component section
+     template in `specs/ui/UI_KIT.md`. Requirements:
+     - All documented states must be interactive — not static. Include hover, active, disabled,
+       focused, selected as applicable.
+     - Each state must have a `state-lbl` label above it.
+     - End the demo with a `hint` describing how to interact ("Clique para testar", etc.)
+     - Include an `ann-box` with all tokens the component uses.
    - List the pending item in the prompt output.
    - Stop and wait for explicit user approval.
-   - After approval: update `status: approved` in `UI_KIT.md`, then implement in project code.
+   - After approval: update `status: approved` in `UI_KIT.md`, then ask:
+     > "Deseja que eu atualize o `UI_KIT.html`?"
+     - If confirmed and file exists: Edit tool — insert the component's zone before `<!-- kit:items:end -->`
+     - If confirmed and file does not exist: generate the full file (see mentor.md step 11b)
+     - If not confirmed: proceed to implement in project code without touching the HTML file.
 
 3. **Element in UI Kit delta (ALTER):** An approved item must change.
    - Present the change explicitly: "**[item name]**: `[old value]` → `[new value]`"
    - Stop and wait for explicit user approval.
-   - After approval: update the item value and keep `status: approved` in `UI_KIT.md`,
-     then implement in project code.
+   - After approval: update the item value and keep `status: approved` in `UI_KIT.md`, then ask:
+     > "Deseja que eu atualize o `UI_KIT.html`?"
+     - If confirmed: Edit tool — replace between `<!-- kit:item:[name]:start -->` and
+       `<!-- kit:item:[name]:end -->` with the updated component section.
+     - If not confirmed: proceed to implement in project code without touching the HTML file.
 
 4. **Element not in `UI_KIT.md` at all:** Stop. Do not implement.
    Tell the user: "This element ([name]) is not in the UI Kit. Add it via the approval flow
