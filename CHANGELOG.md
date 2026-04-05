@@ -5,6 +5,41 @@ Format: `+` added, `~` changed, `-` removed, `!` renamed or breaking.
 
 ---
 
+## [1.2.0] — 2026-04-05
+
++ `specs/ui/UI_KIT.md` added — mandatory design system source of truth
+  → Every Scofield project now ships with a UI Kit spec at specs/ui/UI_KIT.md.
+    Items have status: pending or status: approved. No UI element may be
+    implemented without an approved entry. Includes a full HTML artifact
+    template for visual review directly in the IDE.
+
++ UI Kit approval gate added to `/3a-implement`
+  → Before implementing any UI element, the agent checks UI_KIT.md.
+    New items (CREATE) and changed items (ALTER) require explicit user
+    approval before any project code is written. Missing items block
+    implementation entirely until added via /mentor.
+
++ UI Kit setup step added to `/mentor` (step 11)
+  → On first run, the Mentor proposes base UI Kit items from project context,
+    writes them as pending, generates the HTML artifact, and runs an
+    item-by-item approval loop. On subsequent runs, surfaces any pending items.
+
++ UI Kit delta added to `/2-plans-and-tasks` (step 1b)
+  → Every implementation plan now includes a UI Kit delta section listing
+    items to CREATE or ALTER before implementation begins. Delta items are
+    blocker tasks.
+
+~ `CLAUDE.base.md` updated — UI Kit hard rules
+  → Two new hard rules added to the base: (1) no UI implementation without
+    approved status in UI_KIT.md, (2) no alteration of approved items
+    without explicit user approval.
+
+~ Visual authority updated in `CLAUDE.base.md`
+  → specs/ui/UI_KIT.md is now listed alongside _tokens.md and Figma as a
+    visual authority source.
+
+---
+
 ## [1.1.0] — 2026-03-20
 
 + DocGuard extension added to registry
