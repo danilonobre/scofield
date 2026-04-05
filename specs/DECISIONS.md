@@ -52,6 +52,20 @@ quality signals:
 - Dependencies on external services are noted with their implications
 -->
 
+### ADR-02 — UI Kit as mandatory design system source of truth, enforced via approval gate
+
+**Problem:** Visual decisions (tokens, colors, typography, components) are made ad hoc during implementation. The agent has no canonical source to consult for visual matters and no enforcement mechanism to prevent visual drift between the spec layer and the actual project.
+
+**Options considered:**
+1. Trust the agent to follow `specs/ui/_tokens.md` and Figma without a formal approval mechanism.
+2. Require all visual items to be declared in a dedicated `UI_KIT.md` with user-approved status, and block implementation until approval is granted.
+
+**Choice:** Option 2 — mandatory `specs/ui/UI_KIT.md` with `pending`/`approved` status per item and an approval gate at `/3a-implement`.
+
+**Rationale:** Option 1 relies on agent self-discipline, which degrades across sessions and is not auditable. Option 2 makes the visual source of truth explicit, versioned, and user-controlled. The approval gate at `/3a-implement` is the enforcement point — without it, the rules in `CLAUDE.md` would be advisory only. The HTML artifact is always regenerated from the file (never stateful) to ensure the visual review reflects the actual spec, not a cached render.
+
+---
+
 ### ADR-01 — Extension commands fetched remotely, not bundled locally
 
 **Problem:** Extensions contribute IDE commands (`.md` files for Claude and Cursor). These files need to reach the user's project. The question is: where do they live and how do they get there?
