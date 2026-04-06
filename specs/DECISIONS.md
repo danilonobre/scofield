@@ -64,6 +64,8 @@ quality signals:
 
 **Rationale:** Option 1 relies on agent self-discipline, which degrades across sessions and is not auditable. Option 2 makes the visual source of truth explicit, versioned, and user-controlled. The approval gate at `/3a-implement` is the enforcement point — without it, the rules in `CLAUDE.md` would be advisory only. The HTML artifact (`UI_KIT.html`) is generated from the file using a marker-based architecture — see ADR-03.
 
+**Clarification (2026-04-06):** HTML generation is mandatory before any approval question is asked — not optional afterward. The original flow offered HTML as a follow-up question after approval, which allowed the user to approve items they had never seen rendered. This was a gap: the approval gate is only meaningful if it is grounded in what the user has actually interacted with. The "Deseja que eu atualize o `UI_KIT.html`?" question is now removed from all approval contexts. It remains only in non-approval sessions (e.g. spec-reading) where no status transition is being decided.
+
 ---
 
 ### ADR-03 — UI_KIT.html uses marker-based zones, not full regeneration
