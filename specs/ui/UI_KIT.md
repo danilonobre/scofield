@@ -31,7 +31,15 @@ The UI Kit is visualized as `specs/ui/UI_KIT.html`. This file uses a **marker-ba
 
 ### Generation rules
 
-- **Never generate silently.** After any change to `UI_KIT.md`, ask the user: "Deseja que eu atualize o `UI_KIT.html`?" Only generate or edit after explicit confirmation.
+**Approval context** (any item being reviewed for `pending → approved` transition):
+- HTML generation is **mandatory and immediate** — do not ask for permission.
+- Write or update `UI_KIT.html` before presenting the approval question to the user.
+- Tell the user to open the file and interact with it before answering.
+
+**Non-approval context** (spec-reading sessions, informational changes with no item under review):
+- After any change to `UI_KIT.md`, ask the user: "Deseja que eu atualize o `UI_KIT.html`?" Only generate or edit after explicit confirmation.
+
+**Both contexts:**
 - **First generation:** write the complete file (shell + all zones). Read `specs/ui/_tokens.md` first and use the project's real tokens — not neutral placeholders.
 - **Subsequent edits:** use the Edit tool to modify only the relevant zone. Never rewrite the complete file after the first generation.
 
