@@ -20,29 +20,33 @@ UI Kit approval gate — run before implementing any task that introduces or mod
    `status: approved`, proceed with implementation immediately.
 
 2. **Element in UI Kit delta (CREATE):** The element is new and listed in the plan's UI Kit delta.
-   - Render it in isolation as a self-contained HTML artifact following the component section
+   - Write the item to `UI_KIT.md` with `status: pending`. Follow the component section
      template in `specs/ui/UI_KIT.md`. Requirements:
      - All documented states must be interactive — not static. Include hover, active, disabled,
        focused, selected as applicable.
      - Each state must have a `state-lbl` label above it.
      - End the demo with a `hint` describing how to interact ("Clique para testar", etc.)
      - Include an `ann-box` with all tokens the component uses.
-   - List the pending item in the prompt output.
-   - Stop and wait for explicit user approval.
-   - After approval: update `status: approved` in `UI_KIT.md`, then ask:
-     > "Deseja que eu atualize o `UI_KIT.html`?"
-     - If confirmed and file exists: Edit tool — insert the component's zone before `<!-- kit:items:end -->`
-     - If confirmed and file does not exist: generate the full file (see mentor.md step 11b)
-     - If not confirmed: proceed to implement in project code without touching the HTML file.
+   - Generate or update `UI_KIT.html` immediately — do not ask for permission.
+     - If `specs/ui/UI_KIT.html` does NOT exist: generate the full file (see mentor.md approval loop step 2).
+     - If it exists: Edit tool — insert the component's zone before `<!-- kit:items:end -->`.
+   - Tell the user: "Atualizei o `UI_KIT.html` com o novo componente. Abra e interaja antes de aprovar."
+   - List the pending item in the prompt output and stop for explicit user approval.
+   - On approval: update `status: approved` in `UI_KIT.md`. Proceed with project implementation.
+   - On rejection or change request: ask what to adjust, update `UI_KIT.md`, update `UI_KIT.html`,
+     repeat from the "Tell the user" step above.
 
 3. **Element in UI Kit delta (ALTER):** An approved item must change.
-   - Present the change explicitly: "**[item name]**: `[old value]` → `[new value]`"
-   - Stop and wait for explicit user approval.
-   - After approval: update the item value and keep `status: approved` in `UI_KIT.md`, then ask:
-     > "Deseja que eu atualize o `UI_KIT.html`?"
-     - If confirmed: Edit tool — replace between `<!-- kit:item:[name]:start -->` and
-       `<!-- kit:item:[name]:end -->` with the updated component section.
-     - If not confirmed: proceed to implement in project code without touching the HTML file.
+   - Present the proposed change explicitly: "**[item name]**: `[old value]` → `[new value]`"
+   - Write the proposed new value to `UI_KIT.md` (keep `status: approved` — the item is still
+     approved, under revision).
+   - Update `UI_KIT.html` immediately to reflect the new value — do not ask for permission.
+     Edit tool — replace between `<!-- kit:item:[name]:start -->` and `<!-- kit:item:[name]:end -->`.
+   - Tell the user: "Atualizei o `UI_KIT.html` com a alteração proposta. Abra e interaja antes de confirmar."
+   - Stop for explicit user approval.
+   - On approval: the item retains `status: approved` with the new value. Proceed.
+   - On rejection: revert `UI_KIT.md` to the old value, revert `UI_KIT.html`, ask what to adjust,
+     iterate.
 
 4. **Element not in `UI_KIT.md` at all:** Stop. Do not implement.
    Tell the user: "This element ([name]) is not in the UI Kit. Add it via the approval flow

@@ -52,38 +52,39 @@ When invoked:
    - Write `specs/ui/UI_KIT.md` using the base template defined in that file, with all
      proposed items at `status: pending`.
    - List all pending items in the prompt output (numbered list).
-   - Run the approval loop: present each item one at a time and ask the user to approve or skip.
-     An affirmative response ("yes", "ok", "approved", or equivalent) counts as approval.
-     For each approval: immediately update `status: approved` in `UI_KIT.md` (do not batch).
+   - Run the approval loop below.
 
    **If `UI_KIT.md` already exists:**
    - Read the file and find all items with `status: pending`.
-   - If there are pending items: list them in the prompt output and run the approval loop above.
+   - If there are pending items: list them in the prompt output and run the approval loop below.
    - If there are no pending items: report "UI Kit is fully approved — no pending items."
 
-   b. After any change to `UI_KIT.md` (item approved or added), ask:
-      > "Deseja que eu atualize o `UI_KIT.html`?"
+   **Approval loop** — for each pending item:
+   1. Confirm the item is written to `UI_KIT.md` with `status: pending`.
+   2. Generate or update `UI_KIT.html` immediately — do not ask for permission.
+      - If `specs/ui/UI_KIT.html` does NOT exist (first generation):
+        - Read `specs/ui/_tokens.md` to get the project's real token values.
+        - Write the complete `specs/ui/UI_KIT.html` with:
+          - `<!-- kit:shell:start/end -->`: full CSS + JS + layout structure (sidebar with 4 groups,
+            hero banner, `#agent-rules` section with 3 rule-blocks populated from project context)
+          - `<!-- kit:items:start/end -->`: one `<!-- kit:item:[Name]:start/end -->` block per
+            component, grouped by semantic domain in the sidebar
+          - `<!-- kit:fundamentals:start/end -->`: tokens, typography, spacing sections
+        - Each component section must include all interactive states with `state-lbl` labels
+          and a `hint` describing how to interact. Never static-only.
+        - Group components by semantic domain in the sidebar (expandable sections).
+      - If `specs/ui/UI_KIT.html` already exists:
+        - Use the Edit tool to modify only the relevant zone — never rewrite the complete file.
+        - New item → insert `<!-- kit:item:[Name] -->` block before `<!-- kit:items:end -->`
+        - Updated item → replace between `<!-- kit:item:[Name]:start -->` and `<!-- kit:item:[Name]:end -->`
+   3. Tell the user: "Atualizei o `UI_KIT.html`. Abra o arquivo e interaja com o componente antes de aprovar."
+   4. Ask: "Aprovar este item? (sim / não / o que mudar)"
+   5. On approval (affirmative response — "yes", "ok", "approved", "sim", or equivalent):
+      immediately update `status: approved` in `UI_KIT.md` (do not batch).
+   6. On rejection or change request: ask what to adjust, update `UI_KIT.md`, update `UI_KIT.html`,
+      then repeat from step 3.
 
-      **If confirmed and `specs/ui/UI_KIT.html` does NOT exist (first generation):**
-      - Read `specs/ui/_tokens.md` to get the project's real token values.
-      - Write the complete `specs/ui/UI_KIT.html` with:
-        - `<!-- kit:shell:start/end -->`: full CSS + JS + layout structure (sidebar with 4 groups,
-          hero banner, `#agent-rules` section with 3 rule-blocks populated from project context)
-        - `<!-- kit:items:start/end -->`: one `<!-- kit:item:[Name]:start/end -->` block per
-          component, grouped by semantic domain in the sidebar
-        - `<!-- kit:fundamentals:start/end -->`: tokens, typography, spacing sections
-      - Each component section must include all interactive states with `state-lbl` labels
-        and a `hint` describing how to interact. Never static-only.
-      - Group components by semantic domain in the sidebar (expandable sections).
-
-      **If confirmed and `specs/ui/UI_KIT.html` already exists:**
-      - Use the Edit tool to modify only the relevant zone — never rewrite the complete file.
-      - New item approved → insert `<!-- kit:item:[Name] -->` block before `<!-- kit:items:end -->`
-      - Updated item → replace between `<!-- kit:item:[Name]:start -->` and `<!-- kit:item:[Name]:end -->`
-
-      **If not confirmed:** proceed without touching the HTML file.
-
-   c. At the end of the UI Kit step, display a summary:
+   b. At the end of the UI Kit step, display a summary:
       "UI Kit: N items approved, M items still pending."
 
 If the user invokes the Mentor with additional context (e.g. /mentor Review only the domain),
