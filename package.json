@@ -1,6 +1,6 @@
 {
   "name": "@danilonobre/scofield",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Spec-Driven Development framework for solo builders",
   "bin": {
     "scofield": "bin/scofield.js"

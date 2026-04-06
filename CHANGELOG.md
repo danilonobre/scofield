@@ -5,6 +5,33 @@ Format: `+` added, `~` changed, `-` removed, `!` renamed or breaking.
 
 ---
 
+## [1.4.0] — 2026-04-06
+
++ HTML-first approval gate — approval only after user interacts with UI_KIT.html
+  → No component, token, typography, or color item can transition from `pending`
+    to `approved` until the agent has generated/updated `UI_KIT.html` and the
+    user has had the opportunity to interact with it. Approval without prior HTML
+    interaction is now explicitly invalid.
+
+~ `/mentor` — approval loop now generates HTML before asking, not after
+  → Previous flow: approve item in text → optionally update HTML.
+    New flow: write pending → generate HTML immediately → present to user
+    → ask for approval. The "Deseja que eu atualize o UI_KIT.html?" question
+    is removed from all approval contexts. Rejection iterates: update md →
+    update html → ask again.
+
+~ `/3a-implement` — CREATE and ALTER gates now HTML-first
+  → CREATE: write pending to UI_KIT.md → generate HTML → ask for approval.
+    ALTER: write proposed change → update HTML → ask for approval.
+    Rejection of ALTER reverts both UI_KIT.md and UI_KIT.html.
+    Post-approval HTML question removed from both gates.
+
+~ `specs/ui/UI_KIT.md` — generation rules split by context
+  → Approval context: HTML generation is mandatory and immediate.
+    Non-approval context: the optional question is preserved.
+
+---
+
 ## [1.3.0] — 2026-04-05
 
 + `UI_KIT.html` marker-based architecture
