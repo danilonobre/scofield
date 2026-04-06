@@ -60,5 +60,5 @@ quality signals:
 
 | Status | Description |
 |--------|-------------|
-| `pending` | Item has been proposed by the agent but not yet validated by the user. Cannot be used in project implementation. Transitions to `approved` after explicit user affirmation. |
+| `pending` | Item has been proposed by the agent but not yet validated by the user. Cannot be used in project implementation. Transitions to `approved` after explicit user affirmation — but only after the item has been rendered in `UI_KIT.html` and the user has had the opportunity to interact with it. Approval without prior HTML interaction is not valid. |
 | `approved` | Item has been explicitly validated by the user. Can be used in project implementation. Cannot be altered without explicit user approval in the current session. This is not a terminal status — it can change, but only with user approval. |
